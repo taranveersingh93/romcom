@@ -4,6 +4,7 @@ var homeButton = document.querySelector('.home-button');
 var saveCoverButton = document.querySelector('.save-cover-button');
 var viewSaveButton = document.querySelector('.view-saved-button');
 var makeCoverButton = document.querySelector('.make-new-button');
+var newBookButton = document.querySelector('.create-new-book-button');
 
 var homeView = document.querySelector('.home-view');
 var savedView = document.querySelector('.saved-view');
@@ -21,24 +22,18 @@ var savedCovers = [
 var currentCover;
 
 // Add your event listeners here 👇
-randButton.addEventListener('click', displayRandom);
-window.addEventListener('load', displayRandom);
+randButton.addEventListener('click', assignRandom);
+window.addEventListener('load', assignRandom);
 makeCoverButton.addEventListener('click', enableFormView);
 viewSaveButton.addEventListener('click', enableSavedView);
 homeButton.addEventListener('click', enableHomeView);
+newBookButton.addEventListener('click', makeNewBook);
 // Create your event handlers and other functions here 👇
 
 
 // We've provided two functions to get you started
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
-}
-
-function displayRandom() {
-  coverTitle.innerText = [titles[getRandomIndex(titles)]];
-  tagline1.innerText = [descriptors[getRandomIndex(descriptors)]];
-  tagline2.innerText = [descriptors[getRandomIndex(descriptors)]];
-  coverImage.src = [covers[getRandomIndex(covers)]];
 }
 
 function createCover(imgSrc, title, descriptor1, descriptor2) {
@@ -50,6 +45,42 @@ function createCover(imgSrc, title, descriptor1, descriptor2) {
     tagline2: descriptor2
   }
   return cover
+}
+
+function displayCurrent() {
+  coverTitle.innerText = currentCover.title;
+  coverImage.src = currentCover.coverImg;
+  tagline1.innerText = currentCover.tagline1;
+  tagline2.innerText = currentCover.tagline2;
+}
+
+function assignRandom() {
+  var argTitle = [titles[getRandomIndex(titles)]];
+  var argCover = [covers[getRandomIndex(covers)]];
+  var argDesc1 = [descriptors[getRandomIndex(descriptors)]];
+  var argDesc2 =[descriptors[getRandomIndex(descriptors)]];
+  currentCover = createCover(argCover, argTitle, argDesc1, argDesc2);
+  displayCurrent();
+
+}
+
+
+
+function makeNewBook() {
+  event.preventDefault();
+  var userCover = document.querySelector('#cover').value;
+  var userTitle = document.querySelector('#title').value;
+  var userDesc1 = document.querySelector('#descriptor1').value;
+  var userDesc2 = document.querySelector('#descriptor2').value;
+  currentCover = createCover(userCover, userTitle, userDesc1, userDesc2);
+  
+
+  covers.push(userCover);
+  titles.push(userTitle);
+  descriptors.push(userDesc1, userDesc2);
+  console.log(covers);
+  enableHomeView();
+  displayCurrent();
 }
 
 function enableFormView() {
@@ -80,6 +111,17 @@ function enableHomeView() {
 }
 
 
+/* iterator 2
+import makeMyBook button as a variable using document.querySelector
+assign an eventListener to makeMyBook button to respond when clicked
+//  how to store form input using javascript??
+create new function
+create variables to store user input. 
+Then, use the created object values and push them to the respective arrays
+invoke createCover function
+invoke enableHomeView function
+
+
 /* iterator 1
 import all buttons' DOM elements as variables. 
 import all views' DOM elements as variables. 
@@ -106,7 +148,7 @@ it should remove "hidden" class from homeButton
 //twice from descriptors. 
 
 //Using the above random indexes, find the elements from respective arrays and 
-//use them as variables and manipulate the DOM..
+//use them as variables and manipulate the DOM...
 
 
 
