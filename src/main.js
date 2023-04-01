@@ -17,6 +17,8 @@ var tagline1 = document.querySelector('.tagline-1');
 var tagline2 = document.querySelector('.tagline-2');
 
 
+
+
 var savedCovers = [
   //createCover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
 ];
@@ -30,6 +32,8 @@ viewSaveButton.addEventListener('click', enableSavedView);
 homeButton.addEventListener('click', enableHomeView);
 newBookButton.addEventListener('click', makeNewBook);
 saveCoverButton.addEventListener('click', saveCover);
+
+
 
 // Create your event handlers and other functions here 👇
 
@@ -95,13 +99,12 @@ function displaySavedCovers() {
   var miniCoverTags = [];
   for(var i = 0; i < savedCovers.length; i++) {
     miniCoverTags.push(
-    `<section class="saved-covers-section">   
-      <section class="mini-cover">
-        <img id=${savedCovers[i].id} class="cover-image" src=${savedCovers[i].coverImg}> 
+    ` <section class="mini-cover" id=${savedCovers[i].id}>
+        <img class="cover-image" src=${savedCovers[i].coverImg}> 
         <h2 class="cover-title">${savedCovers[i].title}</h2>
         <h3 class="tagline"> A tale of ${savedCovers[i].tagline1} and ${savedCovers[i].tagline2};
-      </section>
-    </section>`)
+      </section> 
+    `)
   }
 
   savedSection.innerHTML = miniCoverTags.join("");
@@ -154,6 +157,24 @@ function saveCover() {
   savedCovers.push(currentCover);
  }
 }
+
+savedSection.addEventListener('dblclick', function(event) {
+  for(var i = 0; i <savedCovers.length; i++) {
+    if(event.target.closest("section").id === savedCovers[i].id.toString()) {
+      savedCovers.splice(i, 1);
+    }
+  }
+  displaySavedCovers();
+  
+});
+
+
+/* iterator 4
+import the target element from DOM using querySelector
+implement an event listener for dblclick
+create function deleteCover
+
+
 
 
 
