@@ -28,6 +28,7 @@ makeCoverButton.addEventListener('click', enableFormView);
 viewSaveButton.addEventListener('click', enableSavedView);
 homeButton.addEventListener('click', enableHomeView);
 newBookButton.addEventListener('click', makeNewBook);
+saveCoverButton.addEventListener('click', saveCover);
 // Create your event handlers and other functions here 👇
 
 
@@ -55,13 +56,12 @@ function displayCurrent() {
 }
 
 function assignRandom() {
-  var argTitle = [titles[getRandomIndex(titles)]];
-  var argCover = [covers[getRandomIndex(covers)]];
-  var argDesc1 = [descriptors[getRandomIndex(descriptors)]];
-  var argDesc2 =[descriptors[getRandomIndex(descriptors)]];
+  var argTitle = titles[getRandomIndex(titles)];
+  var argCover = covers[getRandomIndex(covers)];
+  var argDesc1 = descriptors[getRandomIndex(descriptors)];
+  var argDesc2 = descriptors[getRandomIndex(descriptors)];
   currentCover = createCover(argCover, argTitle, argDesc1, argDesc2);
   displayCurrent();
-
 }
 
 
@@ -86,7 +86,7 @@ function makeNewBook() {
 function enableFormView() {
   formView.classList.remove("hidden");
   homeView.classList.add("hidden");
-  savedView.classList.add("hidden")
+  savedView.classList.add("hidden");
   randButton.classList.add("hidden");
   saveCoverButton.classList.add("hidden");
   homeButton.classList.remove("hidden");
@@ -110,6 +110,42 @@ function enableHomeView() {
   saveCoverButton.classList.remove("hidden");
 }
 
+function duplicateExists(cover) {
+  var output = false;
+  for(var i = 0; i < savedCovers.length; i++) {
+    if(cover === savedCovers[i]) {
+      output = true;
+    }
+  }
+  return output;
+};
+
+function saveCover() {
+  console.log(currentCover);
+ if(duplicateExists(currentCover) === false) {
+  savedCovers.push(currentCover);
+ }
+ console.log(savedCovers);
+}
+
+/* iterator 3
+import DOM element for save cover button
+add an event listener and trigger a function.
+
+create a function to duplicateExists
+with argument of the currentCover
+it will loop through the array of savedCovers
+check for currentCover === savedCovers[i]
+return true/false
+
+if (duplicateExists=== false) 
+push (currentCover) into savedCovers
+
+use innerhtml to include all the elements of 
+savedCovers (javascript) in the DOM representation for 
+savedCovers section (HTML)
+use classlist.add to add classes from css
+*/
 
 /* iterator 2
 import makeMyBook button as a variable using document.querySelector
