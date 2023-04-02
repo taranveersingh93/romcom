@@ -31,8 +31,8 @@ We spent 20-25 hours working on this project. We are in week two of Mod 1.
 
 ### Contributors:
 [//]: <> (Who worked on this application? Link to their GitHubs.)
-https://github.com/LDeLaRosa13
-https://github.com/taranveersingh93
+- https://github.com/LDeLaRosa13
+- https://github.com/taranveersingh93
 
 ### Learning Goals:
 [//]: <> (What were the learning goals of this project? What tech did you work with?)
