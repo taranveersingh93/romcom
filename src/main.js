@@ -1,4 +1,4 @@
-// Create variables targetting the relevant DOM elements here 👇
+// Variables 👇
 var randButton = document.querySelector('.random-cover-button'); 
 var homeButton = document.querySelector('.home-button');
 var saveCoverButton = document.querySelector('.save-cover-button');
@@ -16,20 +16,17 @@ var coverTitle = document.querySelector('.cover-title');
 var tagline1 = document.querySelector('.tagline-1');
 var tagline2 = document.querySelector('.tagline-2');
 
-var userCover = document.querySelector('#cover').value;
-var userTitle = document.querySelector('#title').value;
-var userDesc1 = document.querySelector('#descriptor1').value;
-var userDesc2 = document.querySelector('#descriptor2').value;
-
-
-
+var userCover = document.querySelector('#cover');
+var userTitle = document.querySelector('#title');
+var userDesc1 = document.querySelector('#descriptor1');
+var userDesc2 = document.querySelector('#descriptor2');
 
 var savedCovers = [
   //createCover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
 ];
 var currentCover;
 
-// Add your event listeners here 👇
+// Event Listeners 👇
 randButton.addEventListener('click', assignRandomCover);
 window.addEventListener('load', assignRandomCover);
 makeCoverButton.addEventListener('click', enableFormView);
@@ -38,12 +35,7 @@ homeButton.addEventListener('click', enableHomeView);
 newBookButton.addEventListener('click', makeNewBook);
 saveCoverButton.addEventListener('click', saveCover);
 
-
-
-// Create your event handlers and other functions here 👇
-
-
-// We've provided two functions to get you started
+// Functions 👇
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
@@ -83,29 +75,27 @@ function assignRandomCover() {
   displayCurrentCover();
 }
 
-function storeData() {
-  event.preventDefault();
-  if(covers.includes(userCover) === false) {
-    covers.push(userCover);
+function storeFormData() {
+  if(!covers.includes(userCover.value)) {
+    covers.push(userCover.value);
   }
-  if(titles.includes(userTitle) === false) {
-    titles.push(userTitle);
+  if(!titles.includes(userTitle.value)) {
+    titles.push(userTitle.value);
   }
-  if(descriptors.includes(userDesc1) === false) {
-    descriptors.push(userDesc1);
+  if(!descriptors.includes(userDesc1.value)) {
+    descriptors.push(userDesc1.value);
   }
-  if(descriptors.includes(userDesc2) === false) {
-    descriptors.push(userDesc2);
-  } console.log(titles);
+  if(!descriptors.includes(userDesc2.value)) {
+    descriptors.push(userDesc2.value);
+  } 
 }
 
 function makeNewBook() {
   event.preventDefault();
-  storeData();
-  currentCover = createCover(userCover, userTitle, userDesc1, userDesc2);
+  storeFormData();
+  currentCover = createCover(userCover.value, userTitle.value, userDesc1.value, userDesc2.value);
   enableHomeView();
   displayCurrentCover();
-  
 }
 
 function displaySavedCovers() {
@@ -116,10 +106,9 @@ function displaySavedCovers() {
         <img class="cover-image" src=${savedCovers[i].coverImg}> 
         <h2 class="cover-title">${savedCovers[i].title}</h2>
         <h3 class="tagline"> A tale of ${savedCovers[i].tagline1} and ${savedCovers[i].tagline2};
-      </section> 
-    `)
+      </section>`
+    )
   }
-
   savedSection.innerHTML = miniCoverTags.join("");
 }
 
@@ -166,90 +155,16 @@ function duplicateExists(coverObj) {
 };
 
 function saveCover() {
- if(duplicateExists(currentCover) === false) {
+ if(!duplicateExists(currentCover)) {
   savedCovers.push(currentCover);
  }
 }
 
 savedSection.addEventListener('dblclick', function(event) {
-  for(var i = 0; i <savedCovers.length; i++) {
+  for(var i = 0; i < savedCovers.length; i++) {
     if(event.target.closest("section").id === savedCovers[i].id.toString()) {
       savedCovers.splice(i, 1);
     }
   }
   displaySavedCovers();
-  
 });
-
-
-/* iterator 4
-import the target element from DOM using querySelector
-implement an event listener for dblclick
-create function deleteCover
-
-
-
-
-
-/* iterator 3
-    
-import DOM element for save cover button
-add an event listener and trigger a function.
-
-create a function to duplicateExists
-with argument of the currentCover
-it will loop through the array of savedCovers
-check for currentCover === savedCovers[i]
-return true/false
-
-if (duplicateExists=== false) 
-push (currentCover) into savedCovers
-
-use innerhtml to include all the elements of 
-savedCovers (javascript) in the DOM representation for 
-savedCovers section (HTML)
-
-*/
-
-/* iterator 2
-import makeMyBook button as a variable using document.querySelector
-assign an eventListener to makeMyBook button to respond when clicked
-//  how to store form input using javascript??
-create new function
-create variables to store user input. 
-Then, use the created object values and push them to the respective arrays
-invoke createCover function
-invoke enableHomeView function
-
-
-/* iterator 1
-import all buttons' DOM elements as variables. 
-import all views' DOM elements as variables. 
-
-create enabledSavedView()
-it should add "hidden" class to homeView
-it should remove "hidden" from savedView
-should add hidden to randButton and saveCoverButton
-it should remove "hidden" class from homeButton
-
-create enableFormView() function
-it should remove "hidden" class from formView
-it should add "hidden" class to homeView
-it should add "hidden" class to randButton and saveCoverButton
-it should remove "hidden" class from homeButton
-*/
-  
-//iterator 0
-//Create two event listeners. load and click(on button) - 
-//both should invoke the same function
-// of displayRandom().
-
-//Using getRandomIndex fetch random index from all three arrays. 
-//twice from descriptors. 
-
-//Using the above random indexes, find the elements from respective arrays and 
-//use them as variables and manipulate the DOM...
-
-
-
-
