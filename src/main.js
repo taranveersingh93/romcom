@@ -16,6 +16,11 @@ var coverTitle = document.querySelector('.cover-title');
 var tagline1 = document.querySelector('.tagline-1');
 var tagline2 = document.querySelector('.tagline-2');
 
+var userCover = document.querySelector('#cover').value;
+var userTitle = document.querySelector('#title').value;
+var userDesc1 = document.querySelector('#descriptor1').value;
+var userDesc2 = document.querySelector('#descriptor2').value;
+
 
 
 
@@ -25,8 +30,8 @@ var savedCovers = [
 var currentCover;
 
 // Add your event listeners here 👇
-randButton.addEventListener('click', assignRandom);
-window.addEventListener('load', assignRandom);
+randButton.addEventListener('click', assignRandomCover);
+window.addEventListener('load', assignRandomCover);
 makeCoverButton.addEventListener('click', enableFormView);
 viewSaveButton.addEventListener('click', enableSavedView);
 homeButton.addEventListener('click', enableHomeView);
@@ -62,37 +67,45 @@ function createCover(imgSrc, title, descriptor1, descriptor2) {
   return cover
 }
 
-function displayCurrent() {
+function displayCurrentCover() {
   coverTitle.innerText = currentCover.title;
   coverImage.src = currentCover.coverImg;
   tagline1.innerText = currentCover.tagline1;
   tagline2.innerText = currentCover.tagline2;
 }
 
-function assignRandom() {
+function assignRandomCover() {
   var argTitle = titles[getRandomIndex(titles)];
   var argCover = covers[getRandomIndex(covers)];
   var argDesc1 = descriptors[getRandomIndex(descriptors)];
   var argDesc2 = descriptors[getRandomIndex(descriptors)];
   currentCover = createCover(argCover, argTitle, argDesc1, argDesc2);
-  displayCurrent();
+  displayCurrentCover();
 }
 
-
+function storeData() {
+  event.preventDefault();
+  if(covers.includes(userCover) === false) {
+    covers.push(userCover);
+  }
+  if(titles.includes(userTitle) === false) {
+    titles.push(userTitle);
+  }
+  if(descriptors.includes(userDesc1) === false) {
+    descriptors.push(userDesc1);
+  }
+  if(descriptors.includes(userDesc2) === false) {
+    descriptors.push(userDesc2);
+  } console.log(titles);
+}
 
 function makeNewBook() {
   event.preventDefault();
-  
-  var userCover = document.querySelector('#cover').value;
-  var userTitle = document.querySelector('#title').value;
-  var userDesc1 = document.querySelector('#descriptor1').value;
-  var userDesc2 = document.querySelector('#descriptor2').value;
-  covers.push(userCover);
-  titles.push(userTitle);
-  descriptors.push(userDesc1, userDesc2);
+  storeData();
   currentCover = createCover(userCover, userTitle, userDesc1, userDesc2);
   enableHomeView();
-  displayCurrent();
+  displayCurrentCover();
+  
 }
 
 function displaySavedCovers() {
